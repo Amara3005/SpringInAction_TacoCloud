@@ -32,8 +32,7 @@ public class DesignTacoController {
 	 private final IngredientRepository ingredientRepo;
     
 	 @Autowired
-     public DesignTacoController(
-           IngredientRepository ingredientRepo) {
+     public DesignTacoController(IngredientRepository ingredientRepo) {
        this.ingredientRepo = ingredientRepo;
    }
    
@@ -43,10 +42,11 @@ public class DesignTacoController {
    Type[] types = Ingredient.Type.values();
    
    for (Type type : types) {
-   model.addAttribute(type.toString().toLowerCase(), filterByType(ingredients, type));
-   } 
+   model.addAttribute(type.toString().toLowerCase(),filterByType(ingredients, type));
+   }
+	 }
 	
-	@ModelAttribute
+	//@ModelAttribute
 	//public void addIngredientsToModel(Model model) {
 		//System.out.println("addIngredients");
 		
@@ -63,18 +63,18 @@ public class DesignTacoController {
 	    //  new Ingredient("SRCR", "Sour Cream", Type.SAUCE)
 	//);
       
-	    Type[] types = Ingredient.Type.values();
+	    /*Type[] types = Ingredient.Type.values();
 	    for (Type type : types) {
 	          model.addAttribute(type.toString().toLowerCase(),
 	        		  filterByType(ingredients, type));
-		        }
+		        }*/
 	    //System.out.println("Model Attributes:");
        // for (String attributeName : model.asMap().keySet()) {
          //   Object attributeValue = model.asMap().get(attributeName);
          //   System.out.println(attributeName + ": " + attributeValue);
 	          
 	   // } 
-	}
+	//}
 
 	      @ModelAttribute(name = "tacoOrder")
 	      public TacoOrder order() {
@@ -112,16 +112,17 @@ public class DesignTacoController {
 	        return "redirect:/orders/current";
 	      }
 
-
-	      
-	      
 	      private Iterable<Ingredient> filterByType(
-	          List<Ingredient> ingredients, Type type) {
-	        return ingredients
+	    	        Iterable<Ingredient> ingredients, Type type) {
+	    	                       return ingredients;
+	      }
+	      
+	      
+	     /* private Iterable<Ingredient> filterByType(
+	          Iterable<Ingredient> ingredients, Type type) {
+	        return ((Object) ingredients)
 	                  .stream()
 	                  .filter(x -> x.getType().equals(type))
-	                  .collect(Collectors.toList());
+	                  .collect(Collectors.toList());*/
 	}
 	      
-
-}

@@ -1,12 +1,20 @@
 package tacos.data;
 
-import org.apache.el.stream.Optional;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+//import org.apache.el.stream.Optional;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import tacos.Ingredient;
 
 @Repository
+@ComponentScan
 public class JdbcIngredientRepository implements IngredientRepository {
   
 	
@@ -25,16 +33,17 @@ public class JdbcIngredientRepository implements IngredientRepository {
 	      this::mapRowToIngredient);
 	}
 	@Override
-	//public Optional<Ingredient> findById(String id) {
-	 // List<Ingredient> results = jdbcTemplate.query(
-	   //   "select id, name, type from Ingredient where id=?",
-	    //  this::mapRowToIngredient,
-	    //  id);
-	 // return results.size() == 0 ?
-	   //       Optional.empty() :
-	       //   Optional.of(results.get(0));
-	//  
-	//}
+ public Optional<Ingredient> findById(String id) {
+    List<Ingredient> results = jdbcTemplate.query(
+        "select id, name, type from Ingredient where id=?",
+        this::mapRowToIngredient,
+        id);
+    
+    return results.isEmpty() ?
+            Optional.empty() :
+            Optional.of(results.get(0));
+}
+
 	private Ingredient mapRowToIngredient(ResultSet row, int rowNum) throws SQLException {
 		return new Ingredient(
 				row.getString("id"),
@@ -43,8 +52,8 @@ public class JdbcIngredientRepository implements IngredientRepository {
 
   // ... 
  
-	@Override
-	public Ingredient findById(int id) {
+	/*@Override
+	public Ingredient findById(String id) {
 	  return jdbcTemplate.queryForObject(
 	      "select id, name, type from Ingredient where id=?",
 	      new RowMapper<Ingredient>() {
@@ -55,14 +64,14 @@ public class JdbcIngredientRepository implements IngredientRepository {
 	rs.getString("id"),
 	rs.getString("name"), Ingredient.Type.valueOf(rs.getString("type")));
 	};
-	}, id);
+	}, id);*/
 	
 
-	@Override
+	/*@Override
 	public Ingredient save(Ingredient ingredient) {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}*/
 	
 	
 	@Override
