@@ -21,6 +21,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 	public class HomeController implements WebMvcConfigurer {
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
+		System.out.println(" home ");
 	registry.addViewController("/").setViewName("home"); }
 	}
 

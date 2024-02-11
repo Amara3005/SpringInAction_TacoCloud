@@ -1,11 +1,13 @@
 package tacos;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
@@ -14,24 +16,14 @@ import lombok.Data;
 
 
 @Data
+@Table
 public class TacoOrder implements Serializable{
 
 	private static final long serialVersionUID = 1L;
+	 
+	  @Id
 	  private Long id;
 	  private Date placedAt;
-	
-	
-	
-	
-	//  private String deliveryName;
-	  //private String deliveryStreet;
-	 // private String deliveryCity;
-	 // private String deliveryState;
-	  //private String deliveryZip;
-	  //private String ccNumber;
-	  //private String ccExpiration;
-	  //private String ccCVV;
-	
 
 	  @NotBlank(message="Delivery name is required")
 	  private String deliveryName;
@@ -52,11 +44,17 @@ public class TacoOrder implements Serializable{
 
 	  
 	
-	private List<Taco> tacos = new ArrayList<>();
-	  public void addTaco(Taco taco) {
+	  private List<Taco> tacos = new ArrayList<>();
+	  public void addTaco(Taco taco) 
+	  {
 		  System.out.println("New Taccoorder class");
-	    this.tacos.add(taco);
+	      this.tacos.add(taco);
 	  }
+	  public void setPlacedAt() 
+	  {
+				  this.placedAt = new Date();
+		
+	   }
 
 
 }
