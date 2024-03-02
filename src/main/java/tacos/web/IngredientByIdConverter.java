@@ -1,5 +1,7 @@
 package tacos.web;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -11,7 +13,7 @@ import tacos.data.IngredientRepository;
 
 @Component
 
-public class IngredientByIdConverter implements Converter<String,IngredientRef> 
+public class IngredientByIdConverter implements Converter<String, Ingredient> 
 {
 	private IngredientRepository ingredientRepo;
 	@Autowired
@@ -22,9 +24,13 @@ public class IngredientByIdConverter implements Converter<String,IngredientRef>
 	 this.ingredientRepo = ingredientRepo; 
 	}
 	@Override
-	public IngredientRef convert(String id) {
-		return new IngredientRef(id);
-
+	public Ingredient convert(String id) {
+		return ingredientRepo.findById(id).orElse(null);
 
 	}
+	
+	/*@Override
+	  public Ingredient convert(String id) {
+	    return ingredientRepo.findById(id);
+	  }*/
 }

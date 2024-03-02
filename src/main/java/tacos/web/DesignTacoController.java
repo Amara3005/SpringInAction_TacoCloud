@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -20,6 +19,7 @@ import tacos.Ingredient.Type;
 import tacos.Taco;
 import tacos.TacoOrder;
 import tacos.data.IngredientRepository;
+import tacos.data.TacoRepository;
 
 @Slf4j
 @Controller
@@ -67,6 +67,7 @@ public class DesignTacoController {
 	      @GetMapping
 	      public String showDesignForm(Model model) 
 	      {
+	    	  
 	    	  System.out.println("getreq");
 	    	  System.out.println("Model "+model);
 	    	  return "design";
@@ -90,7 +91,8 @@ public class DesignTacoController {
 	      
 	      private List<Ingredient> filterByType(List<Ingredient> ingredients, Type type) 
 	      {
-	    	    return ingredients
+	    	  
+	    	  System.out.println(ingredients);	    	    return ingredients
 	    	              .stream()
 	    	              .filter(x -> x.getType().equals(type))
 	    	              .collect(Collectors.toList());
